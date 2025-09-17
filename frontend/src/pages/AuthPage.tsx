@@ -62,7 +62,8 @@ export default function AuthPage() {
           toast.success("Signup successful!");
           navigate("/config");
         } else {
-          toast.error("Signup failed. Please try again.");
+          const message = (response as any)?.error?.message|| "Signup failed. Please try again.";
+          toast.error(message);
         }
       } else {
         const response = await signIn.email({
@@ -74,18 +75,20 @@ export default function AuthPage() {
           toast.success("Signin successful!");
           navigate("/config");
         } else {
-          toast.error("Signin failed. Check your credentials.");
+          const message = (response as any)?.error?.message || "Signin failed. Check your credentials.";
+          toast.error(message);
         }
       }
     } catch (err: any) {
-      toast.error(err?.message || "Something went wrong");
+      const message = err?.response?.data?.message ||  "Unexpected error";
+      toast.error(message);
     }
   };
 
   return (
     <>
       <Toaster position="top-center" />
-      <div className="min-h-screen flex flex-col lg:flex-row gap-6 sm:gap-10 lg:gap-14 xl:gap-16 px-4 sm:px-8 lg:px-12 xl:px-16 py-4 sm:py-6 lg:py-8">
+      <div className="min-h-screen flex flex-col lg:flex-row gap-6 sm:gap-10 lg:gap-14 xl:gap-16 px-4 sm:px-8 lg:px-12 xl:px-16 py-4 sm:py-8 lg:py-12 xl:py-16">
         <div className="hidden lg:flex lg:basis-[55%] xl:basis-[50%] bg-secondary rounded-3xl"></div>
         <div className="bg-background flex items-center justify-center flex-1">
           <div className="w-full max-w-3xl space-y-5 sm:space-y-6 flex flex-col items-center justify-center">
@@ -111,81 +114,88 @@ export default function AuthPage() {
               </p>
             </div>
 
-            <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
-              {isSignup && (
-                <div className="w-full flex flex-col md:flex-row gap-3 sm:gap-4">
-                  <Input
-                    className="w-full md:w-1/2 h-12 md:h-14 lg:h-16"
-                    type="text"
-                    placeholder="Enter First name"
-                    {...register("firstName")}
-                  />
-                  {errors.firstName && (
-                    <p className="text-red-500 text-sm">
-                      {errors.firstName.message as string}
-                    </p>
-                  )}
-                  <Input
-                    className="w-full md:w-1/2 h-12 md:h-14 lg:h-16"
-                    type="text"
-                    placeholder="Enter Last name"
-                    {...register("lastName")}
-                  />
-                  {errors.lastName && (
-                    <p className="text-red-500 text-sm">
-                      {errors.lastName.message as string}
-                    </p>
-                  )}
+            <div className="w-full">
+              <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
+                {isSignup && (
+                  <div className="w-full flex flex-col md:flex-row gap-3 sm:gap-4">
+                  <div className="w-full md:w-1/2 flex flex-col">
+                    <Input
+                      className="w-full h-12 md:h-14 lg:h-16"
+                      type="text"
+                      placeholder="Enter First name"
+                      {...register("firstName")}
+                    />
+                    {errors.firstName && (
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors.firstName.message as string}
+                      </p>
+                    )}
+                  </div>
+                
+                  <div className="w-full md:w-1/2 flex flex-col">
+                    <Input
+                      className="w-full h-12 md:h-14 lg:h-16"
+                      type="text"
+                      placeholder="Enter Last name"
+                      {...register("lastName")}
+                    />
+                    {errors.lastName && (
+                      <p className="text-red-500 text-sm mt-1">
+                        {errors.lastName.message as string}
+                      </p>
+                    )}
+                  </div>
                 </div>
-              )}
+                )}
 
-              <Input
-                className="w-full h-12 md:h-14 lg:h-16"
-                type="email"
-                placeholder="Enter email ID"
-                {...register("email")}
-              />
-              {errors.email && (
-                <p className="text-red-500 text-sm">
-                  {errors.email.message as string}
-                </p>
-              )}
+                <Input
+                  className="w-full h-12 md:h-14 lg:h-16"
+                  type="email"
+                  placeholder="Enter email ID"
+                  {...register("email")}
+                />
+                {errors.email && (
+                  <p className="text-red-500 text-sm">
+                    {errors.email.message as string}
+                  </p>
+                )}
 
-              <Input
-                className="w-full h-12 md:h-14 lg:h-16"
-                type="password"
-                placeholder="Enter Password"
-                {...register("password")}
-              />
-              {errors.password && (
-                <p className="text-red-500 text-sm">
-                  {errors.password.message as string}
-                </p>
-              )}
+                <Input
+                  className="w-full h-12 md:h-14 lg:h-16"
+                  type="password"
+                  placeholder="Enter Password"
+                  {...register("password")}
+                />
+                {errors.password && (
+                  <p className="text-red-500 text-sm">
+                    {errors.password.message as string}
+                  </p>
+                )}
 
-              {isSignup && (
-                <>
-                  <Input
-                    className="w-full h-12 md:h-14 lg:h-16"
-                    type="password"
-                    placeholder="Confirm password"
-                    {...register("confirmPassword")}
-                  />
-                  {errors.confirmPassword && (
-                    <p className="text-red-500 text-sm">
-                      {errors.confirmPassword.message as string}
-                    </p>
-                  )}
-                </>
-              )}
+                {isSignup && (
+                  <>
+                    <Input
+                      className="w-full h-12 md:h-14 lg:h-16"
+                      type="password"
+                      placeholder="Confirm password"
+                      {...register("confirmPassword")}
+                    />
+                    {errors.confirmPassword && (
+                      <p className="text-red-500 text-sm">
+                        {errors.confirmPassword.message as string}
+                      </p>
+                    )}
+                  </>
+                )}
 
-              <Button
-                type="submit"
-                className="mt-6 w-full bg-primary hover:opacity-90 text-primary-foreground h-12 md:h-14 lg:h-16 rounded-lg font-medium text-base sm:text-lg"
-              >
-                {isSignup ? "Create account" : "Signin"}
-              </Button>
-            </form>
+                <Button
+                  type="submit"
+                  className="mt-6 w-full bg-primary hover:opacity-90 text-primary-foreground h-12 md:h-14 lg:h-16 rounded-lg font-medium text-base sm:text-lg"
+                >
+                  {isSignup ? "Create account" : "Signin"}
+                </Button>
+              </form>
+            </div>
 
             <p className="text-center text-xs sm:text-sm md:text-md">
               By continuing, you agree to our{" "}
@@ -198,7 +208,7 @@ export default function AuthPage() {
               </Link>
             </p>
 
-            <p className="text-center mt-2 text-sm sm:text-base md:text-lg">
+            <p className="text-center text-sm sm:text-base md:text-lg">
               {isSignup ? (
                 <>
                   Already have an account?{" "}
