@@ -60,7 +60,7 @@ export default function AuthPage() {
 
         if (response.data?.token) {
           toast.success("Signup successful!");
-          navigate("/dashboard");
+          navigate("/config");
         } else {
           toast.error("Signup failed. Please try again.");
         }
@@ -72,7 +72,7 @@ export default function AuthPage() {
 
         if (response.data?.token) {
           toast.success("Signin successful!");
-          navigate("/dashboard");
+          navigate("/config");
         } else {
           toast.error("Signin failed. Check your credentials.");
         }
