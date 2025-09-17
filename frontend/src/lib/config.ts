@@ -13,6 +13,8 @@ export function useConfigKey() {
     setCookie(COOKIE_NAME, value, {
       path: "/",
       maxAge,
+      sameSite: "none",
+      secure: true,
     });
   };
 
