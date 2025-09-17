@@ -78,17 +78,27 @@ export default function AuthPage() {
   return (
     <>
       <Toaster position="top-center" />
-      <div className="min-h-screen flex flex-col lg:flex-row">
-        <div className="hidden lg:flex flex-1 bg-secondary rounded-r-2xl"></div>
-        <div className="flex-1 bg-background flex items-center justify-center p-6 sm:p-8">
-          <div className="w-full max-w-md space-y-6">
-            <div className="text-center space-y-4">
-              <h1 className="text-2xl sm:text-3xl font-bold text-foreground">
+      <div className="min-h-screen gap-24 flex flex-col lg:flex-row">
+        <div className="m-12 hidden lg:flex basis-[55%] bg-secondary rounded-3xl"></div>
+        <div className="bg-background flex  items-center justify-center  sm:p-8">
+          <div className="max-w-xl space-y-6 flex flex-col items-center justify-center">
+            <div className="text-center space-y-4 flex gap-2 mb-12">
+              <div className="flex">
+                <img src="./logo-l.png" />
+                <img src="./logo-r.png" />
+                <img src="./logo-star.png" className="h-4 w-4" />
+              </div>
+              <h1 className="text-9xl sm:text-3xl text-foreground">
+                Stackguard
+              </h1>
+            </div>
+            <div className="text-center space-y-4 mb-16">
+              <h1 className="text-4xl sm:text-3xl font-semibold text-foreground">
                 {isSignup
                   ? "Welcome to Stackguard"
                   : "Welcome back to Stackguard"}
               </h1>
-              <p className="text-sm sm:text-base text-muted-foreground text-center leading-relaxed">
+              <p className="text-2xl sm:text-md text-foreground text-center leading-relaxed">
                 Secure your codebase with advanced secret scanning security best
                 practices
               </p>
@@ -96,8 +106,9 @@ export default function AuthPage() {
 
             <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
               {isSignup && (
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="w-3xl flex flex-row gap-4">
                   <Input
+                    className="w-xl h-16"
                     type="text"
                     placeholder="Enter First name"
                     {...register("firstName")}
@@ -108,6 +119,7 @@ export default function AuthPage() {
                     </p>
                   )}
                   <Input
+                    className="w-xl h-16"
                     type="text"
                     placeholder="Enter Last name"
                     {...register("lastName")}
@@ -121,6 +133,7 @@ export default function AuthPage() {
               )}
 
               <Input
+                className="w-3xl h-16"
                 type="email"
                 placeholder="Enter email ID"
                 {...register("email")}
@@ -132,6 +145,7 @@ export default function AuthPage() {
               )}
 
               <Input
+                className="w-3xl h-16"
                 type="password"
                 placeholder="Enter Password"
                 {...register("password")}
@@ -145,8 +159,9 @@ export default function AuthPage() {
               {isSignup && (
                 <>
                   <Input
-                    type="password"
-                    placeholder="Enter Confirm password"
+                    className="w-3xl h-16"
+                    type="password "
+                    placeholder="Confirm password"
                     {...register("confirmPassword")}
                   />
                   {errors.confirmPassword && (
@@ -159,30 +174,35 @@ export default function AuthPage() {
 
               <Button
                 type="submit"
-                className="w-full bg-primary hover:opacity-90 text-primary-foreground h-12 rounded-lg font-medium"
+                className="mt-12 w-3xl bg-primary hover:opacity-90 text-primary-foreground h-16 rounded-lg font-medium"
               >
-                {isSignup ? "Create account" : "Sign in"}
+                {isSignup ? "Create account" : "Signin"}
               </Button>
             </form>
 
-            <p className="text-center text-sm text-muted-foreground">
+            <p className="text-center text-md mb-8">
+              By continuing, you agree to our{" "}
+              <Link to="/terms" className="underline font-medium  ">
+                Terms of Service
+              </Link>{" "}
+              and{" "}
+              <Link to="/privacy" className="underline font-medium">
+                Privacy Policy
+              </Link>
+            </p>
+
+            <p className="text-center mt-2 text-lg">
               {isSignup ? (
                 <>
                   Already have an account?{" "}
-                  <Link
-                    to="/signin"
-                    className="text-foreground underline font-medium"
-                  >
+                  <Link to="/signin" className=" underline font-medium">
                     Sign in
                   </Link>
                 </>
               ) : (
                 <>
                   Don’t have an account?{" "}
-                  <Link
-                    to="/signup"
-                    className="text-foreground underline font-medium"
-                  >
+                  <Link to="/signup" className=" underline font-medium">
                     Create one
                   </Link>
                 </>
