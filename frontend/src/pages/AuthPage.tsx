@@ -85,11 +85,11 @@ export default function AuthPage() {
   return (
     <>
       <Toaster position="top-center" />
-      <div className="min-h-screen flex flex-col lg:flex-row">
-        <div className="hidden lg:flex lg:m-8 xl:m-10 2xl:m-12 lg:basis-[55%] xl:basis-[50%] bg-secondary rounded-3xl"></div>
-        <div className="bg-background flex  items-center justify-center px-4 py-6 sm:p-8">
+      <div className="min-h-screen flex flex-col lg:flex-row gap-6 sm:gap-10 lg:gap-14 xl:gap-16 px-4 sm:px-8 lg:px-12 xl:px-16 py-4 sm:py-6 lg:py-8">
+        <div className="hidden lg:flex lg:basis-[55%] xl:basis-[50%] bg-secondary rounded-3xl"></div>
+        <div className="bg-background flex items-center justify-center flex-1">
           <div className="w-full max-w-3xl space-y-5 sm:space-y-6 flex flex-col items-center justify-center">
-            <div className="text-center space-y-3 sm:space-y-4 flex gap-2 mb-10 sm:mb-12">
+            <div className="text-center space-y-3 sm:space-y-4 flex gap-2 mb-6 sm:mb-8">
               <div className="flex">
                 <img src="./logo-l.png" />
                 <img src="./logo-r.png" />
@@ -99,7 +99,7 @@ export default function AuthPage() {
                 Stackguard
               </h1>
             </div>
-            <div className="text-center space-y-4 mb-10 sm:mb-16">
+            <div className="text-center space-y-3 mb-6 sm:mb-10">
               <h1 className="text-2xl sm:text-3xl xl:text-4xl 2xl:text-4xl font-semibold text-foreground">
                 {isSignup
                   ? "Welcome to Stackguard"
@@ -181,13 +181,13 @@ export default function AuthPage() {
 
               <Button
                 type="submit"
-                className="mt-10 w-full bg-primary hover:opacity-90 text-primary-foreground h-12 md:h-14 lg:h-16 rounded-lg font-medium text-base sm:text-lg"
+                className="mt-6 w-full bg-primary hover:opacity-90 text-primary-foreground h-12 md:h-14 lg:h-16 rounded-lg font-medium text-base sm:text-lg"
               >
                 {isSignup ? "Create account" : "Signin"}
               </Button>
             </form>
 
-            <p className="text-center text-xs sm:text-sm md:text-md mb-8">
+            <p className="text-center text-xs sm:text-sm md:text-md">
               By continuing, you agree to our{" "}
               <Link to="/terms" className="underline font-medium  ">
                 Terms of Service

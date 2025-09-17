@@ -1,7 +1,7 @@
 import { Navigate, useLocation } from "react-router-dom";
 import type { ReactElement } from "react";
 import { useSession } from "@/lib/auth-client";
-import { hasConfigKey } from "@/lib/config";
+import { useConfigKey } from "@/lib/config";
 
 const publicRoutes = ["/signin", "/signup"];
 const protectedRoutes = ["/config"];
@@ -15,6 +15,7 @@ function normalizePath(pathname: string): string {
 export default function RouteMiddleware({ children }: { children: ReactElement }) {
   const location = useLocation();
   const { data, isPending } = useSession();
+  const { hasKey } = useConfigKey();
   const pathname = normalizePath(location.pathname);
 
   if (isPending) return null;
@@ -35,7 +36,7 @@ export default function RouteMiddleware({ children }: { children: ReactElement }
 
   if (isPrivate) {
     if (!isAuthenticated) return <Navigate to="/signin" replace />;
-    if (!hasConfigKey()) return <Navigate to="/config" replace />;
+    if (!hasKey) return <Navigate to="/config" replace />;
     return children;
   }
 

@@ -1,31 +1,25 @@
-const CONFIG_KEY_STORAGE_KEY = "app_config_key";
+import { useCookies } from "react-cookie";
 
-export function getConfigKey(): string | null {
-  try {
-    return localStorage.getItem(CONFIG_KEY_STORAGE_KEY);
-  } catch (_) {
-    return null;
-  }
-}
+export const COOKIE_NAME = "app_config_key";
 
-export function setConfigKey(value: string): void {
-  try {
-    localStorage.setItem(CONFIG_KEY_STORAGE_KEY, value);
-  } catch (_) {
-    // ignore
-  }
-}
+export function useConfigKey() {
+  const [cookies, setCookie, removeCookie] = useCookies([COOKIE_NAME]);
 
-export function hasConfigKey(): boolean {
-  const key = getConfigKey();
-  return typeof key === "string" && key.length >= 100 && key.length <= 1000;
-}
+  const key = (cookies[COOKIE_NAME] as string | undefined) ?? null;
+  const hasKey = typeof key === "string" && key.length >= 100 && key.length <= 1000;
 
-export function clearConfigKey(): void {
-  try {
-    localStorage.removeItem(CONFIG_KEY_STORAGE_KEY);
-  } catch (_) {
-    // ignore
-  }
+  const setKey = (value: string, days = 30) => {
+    const maxAge = days * 24 * 60 * 60;
+    setCookie(COOKIE_NAME, value, {
+      path: "/",
+      maxAge,
+    });
+  };
+
+  const clearKey = () => {
+    removeCookie(COOKIE_NAME, { path: "/" });
+  };
+
+  return { key, hasKey, setKey, clearKey };
 }
 
