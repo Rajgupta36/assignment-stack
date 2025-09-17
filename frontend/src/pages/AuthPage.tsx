@@ -86,24 +86,24 @@ export default function AuthPage() {
   };
 
   return (
-    <>
+    <div className="h-screen w-screen overflow-x-hidden">
       <Toaster position="top-center" />
-      <div className="min-h-screen flex flex-col lg:flex-row gap-6 sm:gap-10 lg:gap-14 xl:gap-16 px-4 sm:px-8 lg:px-12 xl:px-16 py-4 sm:py-8 lg:py-12 xl:py-16">
-        <div className="hidden lg:flex lg:basis-[55%] xl:basis-[50%] bg-secondary rounded-3xl"></div>
-        <div className="bg-background flex items-center justify-center flex-1">
-          <div className="w-full max-w-3xl space-y-5 sm:space-y-6 flex flex-col items-center justify-center">
-            <div className="text-center space-y-3 sm:space-y-4 flex gap-2 mb-6 sm:mb-8">
+      <div className="min-h-screen flex flex-col lg:flex-row gap-4 sm:gap-8 lg:gap-10 xl:gap-12 px-4 sm:px-8 lg:px-12 xl:px-16 py-4 sm:py-8 lg:py-12 xl:py-16">
+        <div className="hidden lg:flex lg:basis-[55%] xl:basis-[50%] bg-secondary rounded-3xl" />
+        <div className="bg-background flex items-center justify-center flex-1 overflow-y-auto">
+          <div className="w-full max-w-3xl space-y-4 sm:space-y-5 flex flex-col items-center justify-center py-2">
+            <div className="text-center space-y-2 sm:space-y-3 flex gap-2 mb-4 sm:mb-6">
               <div className="flex">
                 <img src="./logo-l.png" />
                 <img src="./logo-r.png" />
                 <img src="./logo-star.png" className="h-3 w-3 sm:h-4 sm:w-4 2xl:h-5 2xl:w-5" />
               </div>
-              <h1 className="text-2xl sm:text-2xl xl:text-3xl 2xl:text-4xl text-foreground">
+              <h1 className="text-xl sm:text-2xl xl:text-3xl 2xl:text-4xl text-foreground">
                 Stackguard
               </h1>
             </div>
-            <div className="text-center space-y-3 mb-6 sm:mb-10">
-              <h1 className="text-2xl sm:text-3xl xl:text-4xl 2xl:text-4xl font-semibold text-foreground">
+            <div className="text-center space-y-2 mb-4 sm:mb-8">
+              <h1 className="text-xl sm:text-3xl xl:text-4xl 2xl:text-4xl font-semibold text-foreground">
                 {isSignup
                   ? "Welcome to Stackguard"
                   : "Welcome back to Stackguard"}
@@ -115,41 +115,40 @@ export default function AuthPage() {
             </div>
 
             <div className="w-full">
-              <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
+              <form className="space-y-3 sm:space-y-4" onSubmit={handleSubmit(onSubmit)}>
                 {isSignup && (
                   <div className="w-full flex flex-col md:flex-row gap-3 sm:gap-4">
-                  <div className="w-full md:w-1/2 flex flex-col">
-                    <Input
-                      className="w-full h-12 md:h-14 lg:h-16"
-                      type="text"
-                      placeholder="Enter First name"
-                      {...register("firstName")}
-                    />
-                    {errors.firstName && (
-                      <p className="text-red-500 text-sm mt-1">
-                        {errors.firstName.message as string}
-                      </p>
-                    )}
+                    <div className="w-full md:w-1/2 flex flex-col">
+                      <Input
+                        className="w-full h-12"
+                        type="text"
+                        placeholder="Enter First name"
+                        {...register("firstName")}
+                      />
+                      {errors.firstName && (
+                        <p className="text-red-500 text-sm mt-1">
+                          {errors.firstName.message as string}
+                        </p>
+                      )}
+                    </div>
+                    <div className="w-full md:w-1/2 flex flex-col">
+                      <Input
+                        className="w-full h-12"
+                        type="text"
+                        placeholder="Enter Last name"
+                        {...register("lastName")}
+                      />
+                      {errors.lastName && (
+                        <p className="text-red-500 text-sm mt-1">
+                          {errors.lastName.message as string}
+                        </p>
+                      )}
+                    </div>
                   </div>
-                
-                  <div className="w-full md:w-1/2 flex flex-col">
-                    <Input
-                      className="w-full h-12 md:h-14 lg:h-16"
-                      type="text"
-                      placeholder="Enter Last name"
-                      {...register("lastName")}
-                    />
-                    {errors.lastName && (
-                      <p className="text-red-500 text-sm mt-1">
-                        {errors.lastName.message as string}
-                      </p>
-                    )}
-                  </div>
-                </div>
                 )}
 
                 <Input
-                  className="w-full h-12 md:h-14 lg:h-16"
+                  className="w-full h-12"
                   type="email"
                   placeholder="Enter email ID"
                   {...register("email")}
@@ -161,7 +160,7 @@ export default function AuthPage() {
                 )}
 
                 <Input
-                  className="w-full h-12 md:h-14 lg:h-16"
+                  className="w-full h-12"
                   type="password"
                   placeholder="Enter Password"
                   {...register("password")}
@@ -175,7 +174,7 @@ export default function AuthPage() {
                 {isSignup && (
                   <>
                     <Input
-                      className="w-full h-12 md:h-14 lg:h-16"
+                      className="w-full h-12"
                       type="password"
                       placeholder="Confirm password"
                       {...register("confirmPassword")}
@@ -190,7 +189,7 @@ export default function AuthPage() {
 
                 <Button
                   type="submit"
-                  className="mt-6 w-full bg-primary hover:opacity-90 text-primary-foreground h-12 md:h-14 lg:h-16 rounded-lg font-medium text-base sm:text-lg"
+                  className="mt-4 w-full bg-primary hover:opacity-90 text-primary-foreground h-12 rounded-lg font-medium text-base"
                 >
                   {isSignup ? "Create account" : "Signin"}
                 </Button>
@@ -208,7 +207,7 @@ export default function AuthPage() {
               </Link>
             </p>
 
-            <p className="text-center text-sm sm:text-base md:text-lg">
+            <p className="text-center mt-2 text-sm sm:text-base md:text-lg">
               {isSignup ? (
                 <>
                   Already have an account?{" "}
@@ -228,6 +227,6 @@ export default function AuthPage() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
