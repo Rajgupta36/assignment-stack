@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "bun run src/index.ts",
     "start": "bun run src/index.ts",
-    "prisma:generate": "bun run prisma generate"
+    "prisma:generate": "prisma generate"
   },
   "keywords": [],
   "author": "",
