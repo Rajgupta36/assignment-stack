@@ -33,12 +33,19 @@ export default function AuthPage() {
 
   type SignUpFormValues = z.infer<typeof signUpSchema>;
   type SignInFormValues = z.infer<typeof signInSchema>;
+  type FormValues = {
+    firstName?: string;
+    lastName?: string;
+    email: string;
+    password: string;
+    confirmPassword?: string;
+  };
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<SignUpFormValues | SignInFormValues>({
+  } = useForm<FormValues>({
     resolver: zodResolver(isSignup ? signUpSchema : signInSchema),
   });
 
@@ -78,27 +85,27 @@ export default function AuthPage() {
   return (
     <>
       <Toaster position="top-center" />
-      <div className="min-h-screen gap-24 flex flex-col lg:flex-row">
-        <div className="m-12 hidden lg:flex basis-[55%] bg-secondary rounded-3xl"></div>
-        <div className="bg-background flex  items-center justify-center  sm:p-8">
-          <div className="max-w-xl space-y-6 flex flex-col items-center justify-center">
-            <div className="text-center space-y-4 flex gap-2 mb-12">
+      <div className="min-h-screen flex flex-col lg:flex-row">
+        <div className="hidden lg:flex lg:m-8 xl:m-10 2xl:m-12 lg:basis-[55%] xl:basis-[50%] bg-secondary rounded-3xl"></div>
+        <div className="bg-background flex  items-center justify-center px-4 py-6 sm:p-8">
+          <div className="w-full max-w-3xl space-y-5 sm:space-y-6 flex flex-col items-center justify-center">
+            <div className="text-center space-y-3 sm:space-y-4 flex gap-2 mb-10 sm:mb-12">
               <div className="flex">
                 <img src="./logo-l.png" />
                 <img src="./logo-r.png" />
-                <img src="./logo-star.png" className="h-4 w-4" />
+                <img src="./logo-star.png" className="h-3 w-3 sm:h-4 sm:w-4 2xl:h-5 2xl:w-5" />
               </div>
-              <h1 className="text-9xl sm:text-3xl text-foreground">
+              <h1 className="text-2xl sm:text-2xl xl:text-3xl 2xl:text-4xl text-foreground">
                 Stackguard
               </h1>
             </div>
-            <div className="text-center space-y-4 mb-16">
-              <h1 className="text-4xl sm:text-3xl font-semibold text-foreground">
+            <div className="text-center space-y-4 mb-10 sm:mb-16">
+              <h1 className="text-2xl sm:text-3xl xl:text-4xl 2xl:text-4xl font-semibold text-foreground">
                 {isSignup
                   ? "Welcome to Stackguard"
                   : "Welcome back to Stackguard"}
               </h1>
-              <p className="text-2xl sm:text-md text-foreground text-center leading-relaxed">
+              <p className="text-sm sm:text-base xl:text-lg 2xl:text-xl text-foreground text-center leading-relaxed px-1 sm:px-0">
                 Secure your codebase with advanced secret scanning security best
                 practices
               </p>
@@ -106,9 +113,9 @@ export default function AuthPage() {
 
             <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
               {isSignup && (
-                <div className="w-3xl flex flex-row gap-4">
+                <div className="w-full flex flex-col md:flex-row gap-3 sm:gap-4">
                   <Input
-                    className="w-xl h-16"
+                    className="w-full md:w-1/2 h-12 md:h-14 lg:h-16"
                     type="text"
                     placeholder="Enter First name"
                     {...register("firstName")}
@@ -119,7 +126,7 @@ export default function AuthPage() {
                     </p>
                   )}
                   <Input
-                    className="w-xl h-16"
+                    className="w-full md:w-1/2 h-12 md:h-14 lg:h-16"
                     type="text"
                     placeholder="Enter Last name"
                     {...register("lastName")}
@@ -133,7 +140,7 @@ export default function AuthPage() {
               )}
 
               <Input
-                className="w-3xl h-16"
+                className="w-full h-12 md:h-14 lg:h-16"
                 type="email"
                 placeholder="Enter email ID"
                 {...register("email")}
@@ -145,7 +152,7 @@ export default function AuthPage() {
               )}
 
               <Input
-                className="w-3xl h-16"
+                className="w-full h-12 md:h-14 lg:h-16"
                 type="password"
                 placeholder="Enter Password"
                 {...register("password")}
@@ -159,8 +166,8 @@ export default function AuthPage() {
               {isSignup && (
                 <>
                   <Input
-                    className="w-3xl h-16"
-                    type="password "
+                    className="w-full h-12 md:h-14 lg:h-16"
+                    type="password"
                     placeholder="Confirm password"
                     {...register("confirmPassword")}
                   />
@@ -174,13 +181,13 @@ export default function AuthPage() {
 
               <Button
                 type="submit"
-                className="mt-12 w-3xl bg-primary hover:opacity-90 text-primary-foreground h-16 rounded-lg font-medium"
+                className="mt-10 w-full bg-primary hover:opacity-90 text-primary-foreground h-12 md:h-14 lg:h-16 rounded-lg font-medium text-base sm:text-lg"
               >
                 {isSignup ? "Create account" : "Signin"}
               </Button>
             </form>
 
-            <p className="text-center text-md mb-8">
+            <p className="text-center text-xs sm:text-sm md:text-md mb-8">
               By continuing, you agree to our{" "}
               <Link to="/terms" className="underline font-medium  ">
                 Terms of Service
@@ -191,7 +198,7 @@ export default function AuthPage() {
               </Link>
             </p>
 
-            <p className="text-center mt-2 text-lg">
+            <p className="text-center mt-2 text-sm sm:text-base md:text-lg">
               {isSignup ? (
                 <>
                   Already have an account?{" "}
