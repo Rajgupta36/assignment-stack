@@ -15,7 +15,7 @@ app.use("/api/auth", toNodeHandler(auth));
 
 app.use(express.json());
 
-const port = 8000;
+const port = process.env.PORT || 8000;
 app.listen(port, () => {
   console.log(`Express server listening on port ${port}`);
 });
