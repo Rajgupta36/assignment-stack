@@ -6,6 +6,7 @@ import { signIn, signUp } from "@/lib/auth-client";
 import { toast, Toaster } from "sonner";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Loader2 } from "lucide-react";
 
 export default function AuthPage() {
   const navigate = useNavigate();
@@ -44,7 +45,7 @@ export default function AuthPage() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<FormValues>({
     resolver: zodResolver(isSignup ? signUpSchema : signInSchema),
   });
@@ -93,7 +94,7 @@ export default function AuthPage() {
         <div className="bg-background flex items-center justify-center flex-1 overflow-y-auto">
           <div className="w-full max-w-3xl space-y-4 sm:space-y-5 flex flex-col items-center justify-center py-2">
             <div className="text-center space-y-2 sm:space-y-3 flex gap-2 mb-4 sm:mb-6">
-              <div className="flex">
+              <div className="flex mb-12">
                 <img src="./logo-l.png" />
                 <img src="./logo-r.png" />
                 <img src="./logo-star.png" className="h-3 w-3 sm:h-4 sm:w-4 2xl:h-5 2xl:w-5" />
@@ -108,21 +109,22 @@ export default function AuthPage() {
                   ? "Welcome to Stackguard"
                   : "Welcome back to Stackguard"}
               </h1>
-              <p className="text-sm sm:text-base xl:text-lg 2xl:text-xl text-foreground text-center leading-relaxed px-1 sm:px-0">
+              <p className="text-sm sm:text-base xl:text-lg 2xl:text-xl leading-tight text-foreground text-center leading-relaxed px-1 sm:px-0">
                 Secure your codebase with advanced secret scanning security best
                 practices
               </p>
             </div>
 
             <div className="w-full">
-              <form className="space-y-3 sm:space-y-4" onSubmit={handleSubmit(onSubmit)}>
+              <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
                 {isSignup && (
                   <div className="w-full flex flex-col md:flex-row gap-3 sm:gap-4">
                     <div className="w-full md:w-1/2 flex flex-col">
                       <Input
-                        className="w-full h-12"
+                        className="w-full "
                         type="text"
                         placeholder="Enter First name"
+                        disabled={isSubmitting}
                         {...register("firstName")}
                       />
                       {errors.firstName && (
@@ -133,9 +135,10 @@ export default function AuthPage() {
                     </div>
                     <div className="w-full md:w-1/2 flex flex-col">
                       <Input
-                        className="w-full h-12"
+                        className="w-full "
                         type="text"
                         placeholder="Enter Last name"
+                        disabled={isSubmitting}
                         {...register("lastName")}
                       />
                       {errors.lastName && (
@@ -148,9 +151,10 @@ export default function AuthPage() {
                 )}
 
                 <Input
-                  className="w-full h-12"
+                  className="w-full "
                   type="email"
                   placeholder="Enter email ID"
+                  disabled={isSubmitting}
                   {...register("email")}
                 />
                 {errors.email && (
@@ -160,9 +164,10 @@ export default function AuthPage() {
                 )}
 
                 <Input
-                  className="w-full h-12"
+                  className="w-full "
                   type="password"
                   placeholder="Enter Password"
+                  disabled={isSubmitting}
                   {...register("password")}
                 />
                 {errors.password && (
@@ -174,9 +179,10 @@ export default function AuthPage() {
                 {isSignup && (
                   <>
                     <Input
-                      className="w-full h-12"
+                      className="w-full "
                       type="password"
                       placeholder="Confirm password"
+                      disabled={isSubmitting}
                       {...register("confirmPassword")}
                     />
                     {errors.confirmPassword && (
@@ -189,14 +195,23 @@ export default function AuthPage() {
 
                 <Button
                   type="submit"
-                  className="mt-4 w-full bg-primary hover:opacity-90 text-primary-foreground h-12 rounded-lg font-medium text-base"
+                  className="w-full bg-primary hover:opacity-90 text-primary-foreground rounded-lg font-medium text-base"
+                  disabled={isSubmitting}
+                  aria-busy={isSubmitting}
                 >
-                  {isSignup ? "Create account" : "Signin"}
+                  {isSubmitting ? (
+                    <span className="inline-flex items-center justify-center gap-2">
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                      {isSignup ? "Creating account..." : "Signing in..."}
+                    </span>
+                  ) : (
+                    isSignup ? "Create account" : "Signin"
+                  )}
                 </Button>
               </form>
             </div>
 
-            <p className="text-center text-xs sm:text-sm md:text-md">
+            <p className="text-center text-xs sm:text-sm md:text-base">
               By continuing, you agree to our{" "}
               <Link to="/terms" className="underline font-medium  ">
                 Terms of Service
@@ -217,10 +232,6 @@ export default function AuthPage() {
                 </>
               ) : (
                 <>
-                  Don’t have an account?{" "}
-                  <Link to="/signup" className=" underline font-medium">
-                    Create one
-                  </Link>
                 </>
               )}
             </p>

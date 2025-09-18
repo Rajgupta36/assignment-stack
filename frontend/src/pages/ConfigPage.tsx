@@ -36,23 +36,23 @@ export default function ConfigPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col lg:flex-row">
-      <div className="hidden lg:flex lg:m-8 xl:m-10 2xl:m-12 lg:basis-[55%] xl:basis-[50%] bg-secondary rounded-3xl"></div>
-      <div className="bg-background flex  items-center justify-center px-4 py-6 sm:p-8">
-        <div className="w-full max-w-3xl space-y-5 sm:space-y-6 flex flex-col items-center justify-center">
-          <div className="text-center space-y-3 sm:space-y-4 flex gap-2 mb-10 sm:mb-12">
-            <div className="flex">
-              <img src="./logo-l.png" />
-              <img src="./logo-r.png" />
-              <img src="./logo-star.png" className="h-3 w-3 sm:h-4 sm:w-4 2xl:h-5 2xl:w-5" />
-            </div>
-            <h1 className="text-2xl sm:text-2xl xl:text-3xl 2xl:text-4xl text-foreground">
-              Stackguard
-            </h1>
+    <div className="min-h-screen flex flex-col lg:flex-row gap-4 sm:gap-8 lg:gap-10 xl:gap-12 px-4 sm:px-8 lg:px-12 xl:px-16 py-4 sm:py-8 lg:py-12 xl:py-16">
+    <div className="hidden lg:flex lg:basis-[55%] xl:basis-[50%] bg-secondary rounded-3xl" />
+    <div className="bg-background flex items-center justify-center flex-1 overflow-y-auto">
+      <div className="w-full max-w-3xl space-y-4 flex flex-col items-center justify-center py-2">
+        <div className="text-center space-y-2 sm:space-y-3 flex gap-2 mb-4 sm:mb-6">
+          <div className="flex mb-12">
+            <img src="./logo-l.png" />
+            <img src="./logo-r.png" />
+            <img src="./logo-star.png" className="h-3 w-3 sm:h-4 sm:w-4 2xl:h-5 2xl:w-5" />
           </div>
-          <div className="text-center space-y-4 mb-10 sm:mb-16">
+          <h1 className="text-xl sm:text-2xl xl:text-3xl 2xl:text-4xl text-foreground">
+            Stackguard
+          </h1>
+        </div>
+          <div className="text-center space-y-4 mb-12 sm:mb-12">
             <h1 className="text-2xl sm:text-3xl xl:text-4xl 2xl:text-4xl font-semibold text-foreground">Verify your public key</h1>
-              <p className="text-sm sm:text-base xl:text-lg 2xl:text-xl text-foreground text-center leading-relaxed px-1 sm:px-0">
+                <p className="text-sm sm:text-base xl:text-lg 2xl:text-xl text-foreground text-center leading-tight px-1 sm:px-0">
               To get started provide your public key for verification
             </p>
           </div>
@@ -62,7 +62,7 @@ export default function ConfigPage() {
             <div className="relative w-full">
               <Input
                 id="public-key"
-                className="w-full h-12 md:h-14 lg:h-16 pr-12"
+                className="w-full pr-12"
                 placeholder="Enter your public key"
                 type={show ? "text" : "password"}
                 value={value}
@@ -81,11 +81,11 @@ export default function ConfigPage() {
             {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
           </div>
 
-          <Button onClick={onSave}  className="mt-10 w-full bg-primary hover:opacity-90 text-primary-foreground h-12 md:h-14 lg:h-16 rounded-lg font-medium text-base sm:text-lg">
+          <Button onClick={onSave}  className="mt-6 w-full bg-primary hover:opacity-90 text-primary-foreground h-12 md:h-14 lg:h-16 rounded-lg font-medium text-base sm:text-lg">
             Verify
           </Button>
 
-          <p className="text-center mt-2 text-sm sm:text-base md:text-lg">
+          <p className="text-center mt-20 text-sm sm:text-base md:text-lg">
             Don’t have a public key? Contact your administrator
           </p>
         </div>
